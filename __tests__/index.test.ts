@@ -125,10 +125,11 @@ describe("Hi Inbox - Automation", () => {
 
     const hasEmail = await (await page.waitForResponse(response => response.url().includes('hasemailaccount'))).text()
     
-    if (hasEmail) {
+    if (JSON.parse(hasEmail)) {
       const consumerEmail = await page.$('input[name="consumerEmail"]')
       expect(consumerEmail).to.have.property('_disposed', false)
     } else {
+      console.log('This combination doesn\'t have a e-mail account. Skipping..');
       this.skip();
     }
   });
